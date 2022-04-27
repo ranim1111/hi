@@ -1,47 +1,51 @@
 import React from "react";
 import FileUploader from "../uploadfiles/UploadFiles";
-import SideBar from "../layout/SideBar";
-import "../../styles/Home.css";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+
+import { makeStyles } from "@material-ui/core/styles";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import Box from "@mui/material/Box";
 
 import Typography from "@material-ui/core/Typography";
 
+import LayoutHome from "../layout/LayoutHome";
+
 const useStyles = makeStyles((theme) => ({
-  typography: {
+  typography1: {
     color: "grey",
-    margin: theme.spacing(9.25, 32),
+  },
+  typography2: {
+    color: "grey",
+    marginTop: 30,
   },
   dropezone: {
     color: "grey",
-    margin: theme.spacing(-7, 32),
-    width: 1080,
+    marginTop: 20,
+    marginLeft: 15,
+    width: 1200,
   },
   iconarrow: {
     fontSize: "inherit",
     marginBottom: -6.25,
   },
   title: {
-    margin: theme.spacing(-17, 32),
+    margin: theme.spacing(-14, 37),
   },
-  logo: {
-    width: 200,
-    maxHeight: 130,
-    margin: theme.spacing(-1, 2.5),
+
+  contenu: {
+    margin: theme.spacing(3.5, 12),
   },
 }));
 export default function DashboardHome() {
   const classes = useStyles();
 
   return (
-    <div>
-      <SideBar />
+    <div className={classes.contenu}>
       <Box>
+        <LayoutHome />
         <Typography
           variant="subtitle1"
           component="h2"
-          className={classes.typography}
+          className={classes.typography1}
         >
           Dashboard <ArrowRightIcon className={classes.iconarrow} />
           File Uploader
@@ -54,7 +58,7 @@ export default function DashboardHome() {
         <Typography
           variant="subtitle1"
           component="h2"
-          className={classes.typography}
+          className={classes.typography2}
         >
           Dashboard <ArrowRightIcon className={classes.iconarrow} />
           Reports

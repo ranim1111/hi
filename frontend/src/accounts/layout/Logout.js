@@ -4,10 +4,10 @@ import Divider from "@material-ui/core/Divider";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import "../../styles/Home.css";
+
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { Typography } from "@mui/material";
 export default function Logout() {
   const navigate = useNavigate();
   async function HandleLogout() {
@@ -34,7 +34,7 @@ export default function Logout() {
           <ListItemIcon>
             <LogoutIcon />
           </ListItemIcon>
-          <ListItemText primary="Logout" />
+          <Typography>Logout</Typography>
         </ListItem>
       </List>
     </React.Fragment>

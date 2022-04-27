@@ -13,24 +13,32 @@ background-size: 900px 600px;
 background-repeat: no-repeat;
 
 
+
     
 }
 .logo {
   height: 4cm;
   width: 8cm;
   margin-left: 24cm;
-  margin-top: 0cm;
+  margin-top: -0.25cm;
   
 }
 .containersignup{
   
     background-color: rgb(255, 255, 255);
-    transform: translate(89%,-11%);
+    transform: translate(89%,-14%);
     margin-top: 0cm;
 
 
       
 }
+
+.buttonrolsignup{
+  transform: translate(2%,15%);
+ 
+}
+
+
 .typography1{
 color: rgb(22, 81, 121);
 text-align: center;

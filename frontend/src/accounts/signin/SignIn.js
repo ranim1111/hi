@@ -10,12 +10,11 @@ import axios from "axios"; //pour l'envoie des requetes
 import Google from "../googlesignin/Google";
 import { useNavigate } from "react-router-dom";
 
-//import SignUp from "../signup/SignUp";
 function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  //const [redirect, setRedirect] = useState(true);
+
   async function handleSubmitSignin(e) {
     e.preventDefault();
     try {

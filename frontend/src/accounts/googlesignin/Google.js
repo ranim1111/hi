@@ -4,8 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 import React from "react";
-//import { Route } from "react-router-dom";
-//import { Link } from "react-router-dom";
+
 function Google() {
   const navigate = useNavigate();
   async function responseSuccessGoogle(response) {
@@ -17,14 +16,15 @@ function Google() {
         url: "http://localhost:5000/user/googlesignin",
         data:
           //donnees de la requete
-          { tokenId: response.tokenId },
+          { tokenId: response.tokenId, email: response.email },
       }).then((response) => {
         console.log("Google login with success", response);
         navigate("/Dashboard");
-        Swal.fire({
-          title: "You Have Successfully Logged in !",
-          icon: "success",
-        });
+        Swal.fire(
+          "You Have Successfully Logged in !",
+
+          "success"
+        );
       });
     } catch (error) {
       console.log(error);
@@ -57,6 +57,7 @@ function Google() {
       onSuccess={responseSuccessGoogle}
       onFailure={responseErrorGoogle}
       cookiePolicy={"single_host_origin"}
+      theme="dark"
     />
     /*)}
     </Route> */

@@ -1,10 +1,10 @@
 import React from "react";
-import SideBar from "../layout/SideBar";
+import LayoutHome from "../layout/LayoutHome";
 
 export default function RecomHome() {
   return (
     <div>
-      <SideBar />
+      <LayoutHome />
     </div>
   );
 }

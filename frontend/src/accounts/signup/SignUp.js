@@ -5,6 +5,7 @@ import TextField from "@mui/material/TextField";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
+
 //import "../../styles/accounts.css";
 
 import Swal from "sweetalert2";
@@ -16,11 +17,12 @@ function SignUp() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  //const [role, setRole] = useState("user");
 
   async function handleSubmit(e) {
     e.preventDefault();
     try {
-      const response = await axios({
+      await axios({
         //requete
         method: "POST",
         url: "http://localhost:5000/user/signup",
@@ -31,9 +33,19 @@ function SignUp() {
           phoneNumber: phoneNumber,
           email: email,
           password: password,
+          //role: role,
         },
       });
-      Swal.fire("Your account has been successfully created !");
+      setFistName("");
+      setLastName("");
+      setPassword("");
+      setPhoneNumber("");
+      setEmail("");
+      //setRole("");
+      Swal.fire({
+        title: "Your account has been successfully created !",
+        icon: "success",
+      });
     } catch (error) {
       console.log(error);
       Swal.fire({
@@ -42,12 +54,6 @@ function SignUp() {
         text: ` ${error.response.data} `,
       });
     }
-
-    setFistName("");
-    setLastName("");
-    setPassword("");
-    setPhoneNumber("");
-    setEmail("");
   }
 
   return (
@@ -66,8 +72,8 @@ function SignUp() {
         </Typography>
         <br />
         <Box component="form" sx={{ mt: 0 }} onSubmit={handleSubmit}>
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
+          <Grid container spacing={1}>
+            <Grid item xs={12}>
               <TextField
                 name="firstName"
                 required
@@ -78,7 +84,7 @@ function SignUp() {
                 onChange={(e) => setFistName(e.target.value)}
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
               <TextField
                 required
                 fullWidth
@@ -123,6 +129,7 @@ function SignUp() {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </Grid>
+
             <Grid item sm={5}>
               <Button
                 type="submit"
