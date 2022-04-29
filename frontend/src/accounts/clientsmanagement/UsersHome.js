@@ -8,6 +8,9 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableFooter from "@mui/material/TableFooter";
 import TablePagination from "@mui/material/TablePagination";
+import axios from "axios";
+import DeleteIcon from "@mui/icons-material/Delete";
+
 import {
   TableRow,
   TableHead,
@@ -20,7 +23,7 @@ import {
   ButtonGroup,
 } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import DeleteIcon from "@mui/icons-material/Delete";
+import DeleteUser from "./DeleteUser";
 import EditIcon from "@mui/icons-material/Edit";
 
 import Paper from "@mui/material/Paper";
@@ -101,19 +104,38 @@ TablePaginationActions.propTypes = {
   rowsPerPage: PropTypes.number.isRequired,
 };
 
-function createData(name, calories, fat) {
-  return { name, calories, fat };
-}
-
-const rows = [createData("Cupcake", 305, 3), createData("Donut", 452, 25.0)];
+//const rows = [createData("Cupcake", 305, 3), createData("Donut", 452, 25.0)];
 
 export default function UsersHome() {
+  const [usersCollection, setUsersCollection] = React.useState([]);
+  React.useEffect(() => {
+    axios
+      .get("http://localhost:5000/user/userslist")
+      .then((res) => {
+        setUsersCollection(res.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  });
+  const handleDeleteUser = (_id) => {
+    axios
+      .post(`http://localhost:5000/user/deleteuser/${_id}`)
+      .then((res) => {
+        setUsersCollection(res.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+    page > 0
+      ? Math.max(0, (1 + page) * rowsPerPage - usersCollection.length)
+      : 0;
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -163,36 +185,33 @@ export default function UsersHome() {
                   <TableCell align="right">Last Name</TableCell>
                   <TableCell>Email</TableCell>
                   <TableCell>Phone Number</TableCell>
-                  <TableCell>Password</TableCell>
+
                   <TableCell>Actions</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {(rowsPerPage > 0
-                  ? rows.slice(
+                  ? usersCollection.slice(
                       page * rowsPerPage,
                       page * rowsPerPage + rowsPerPage
                     )
-                  : rows
-                ).map((row) => (
-                  <TableRow key={row.name}>
+                  : setUsersCollection
+                ).map((data, i) => (
+                  <TableRow key={i}>
                     <TableCell component="th" scope="row">
-                      {row.name}
+                      {data._id}
                     </TableCell>
-                    <TableCell style={{ width: 160 }} align="right">
-                      {row.calories}
+                    <TableCell component="th" scope="row">
+                      {data.firstName}
                     </TableCell>
-                    <TableCell style={{ width: 160 }} align="right">
-                      {row.fat}
+                    <TableCell component="th" scope="row">
+                      {data.lastName}
                     </TableCell>
-                    <TableCell style={{ width: 160 }} align="right">
-                      {row.fat}
+                    <TableCell component="th" scope="row">
+                      {data.email}
                     </TableCell>
-                    <TableCell style={{ width: 160 }} align="right">
-                      {row.fat}
-                    </TableCell>
-                    <TableCell style={{ width: 160 }} align="right">
-                      {row.fat}
+                    <TableCell component="th" scope="row">
+                      {data.phoneNumber}
                     </TableCell>
                     <TableCell>
                       <ButtonGroup
@@ -218,7 +237,7 @@ export default function UsersHome() {
                         <Tooltip title="Delete">
                           <Button
                             color="error"
-                            //onClick={handleDeleteClick}
+                            onClick={handleDeleteUser}
                             startIcon={<DeleteIcon />}
                           />
                         </Tooltip>
@@ -226,7 +245,6 @@ export default function UsersHome() {
                     </TableCell>
                   </TableRow>
                 ))}
-
                 {emptyRows > 0 && (
                   <TableRow style={{ height: 53 * emptyRows }}>
                     <TableCell colSpan={6} />
@@ -243,7 +261,7 @@ export default function UsersHome() {
                       { label: "All", value: -1 },
                     ]}
                     colSpan={7}
-                    count={rows.length}
+                    count={usersCollection.length}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     SelectProps={{

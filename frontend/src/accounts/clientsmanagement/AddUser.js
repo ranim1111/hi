@@ -2,16 +2,11 @@ import * as React from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import { Grid, Box, Container, Typography } from "@mui/material";
 import DialogTitle from "@mui/material/DialogTitle";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormControl from "@mui/material/FormControl";
-import FormLabel from "@mui/material/FormLabel";
+
 import axios from "axios";
 import Swal from "sweetalert2";
 
@@ -52,18 +47,10 @@ export default function FormDialog() {
       setPassword("");
       setPhoneNumber("");
       setEmail("");
+      handleClose();
       //setRole("");
-      Swal.fire({
-        title: "Your account has been successfully created !",
-        icon: "success",
-      });
     } catch (error) {
       console.log(error);
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: ` ${error.response.data} `,
-      });
     }
   }
 
