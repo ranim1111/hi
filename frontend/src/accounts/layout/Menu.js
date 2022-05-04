@@ -12,6 +12,10 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
 import Collapse from "@mui/material/Collapse";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import GridViewIcon from "@mui/icons-material/GridView";
+import CommentIcon from "@mui/icons-material/Comment";
+import AddCommentIcon from "@mui/icons-material/AddComment";
+
+import DraftsIcon from "@mui/icons-material/Drafts";
 
 export default function Menu2() {
   const [open, setOpen] = useState(false);
@@ -72,6 +76,12 @@ export default function Menu2() {
             <PeopleIcon />
           </ListItemIcon>
           <Typography> Users</Typography>
+        </ListItem>
+        <ListItem button component={Link} to={"/Comments"}>
+          <ListItemIcon>
+            <AddCommentIcon />
+          </ListItemIcon>
+          <Typography> Feedbacks</Typography>
         </ListItem>
       </List>
       <Logout />
